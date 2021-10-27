@@ -26,7 +26,7 @@ public class PlanController {
 	@Autowired
 	private SequenceGeneratorService service;
 
-	@GetMapping(value="/all")
+	@GetMapping(value="/allPlans")
 	public List<Plan> getAllPlans(){		
 		return planRepository.findAll();		
 	}
@@ -36,7 +36,7 @@ public class PlanController {
 	    return planRepository.findById(id);
 	  }
 	
-	@PostMapping(value="/create")
+	@PostMapping(value="/createPlan")
 	public String createPlan(@RequestBody Plan plan) {
 		plan.setId(service.getSequenceNumber(Plan.SEQUENCE_NAME));
 		Plan insertedPlan=planRepository.save(plan);

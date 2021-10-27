@@ -10,16 +10,16 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Document(collection="Plan")
-public class Plan {
+@Document(collection="Scheme")
+public class Scheme {
 	
 @Transient	
-public static final String SEQUENCE_NAME="plan_sequence";
+public static final String SEQUENCE_NAME="scheme_sequence";
 	
 @Id
 private int id;
 private String name;
-private String priority;
+
 public int getId() {
 	return id;
 }
@@ -31,12 +31,6 @@ public String getName() {
 }
 public void setName(String name) {
 	this.name = name;
-}
-public String getPriority() {
-	return priority;
-}
-public void setPriority(String priority) {
-	this.priority = priority;
 }
 
 }
