@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.example.finalApi.model.Plan;
 
 @Repository
-public interface PlanRepository extends MongoRepository<Plan, Long>{
+public interface PlanRepository extends MongoRepository<Plan, Integer>{
 
 }

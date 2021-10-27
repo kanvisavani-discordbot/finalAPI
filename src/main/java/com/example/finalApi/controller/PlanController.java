@@ -18,17 +18,19 @@ public class PlanController {
 	
 	@Autowired
 	public PlanRepository planRepository;
+	
+	@Autowired
+	private SequenceGeneratorService service;
 
 	@GetMapping(value="/all")
-	public List<Plan> getAllPlans(){
-		
-		return planRepository.findAll();
-		
+	public List<Plan> getAllPlans(){		
+		return planRepository.findAll();		
 	}
 	
 	@PostMapping(value="/create")
 	public String createPlan(@RequestBody Plan plan) {
-		Plan insertedPlan=planRepository.insert(plan);
+		plan.setId(service.getSequenceNumber(Plan.SEQUENCE_NAME));
+		Plan insertedPlan=planRepository.save(plan);
 		return "Plan created "+insertedPlan.getName();
 	}
 	
