@@ -36,7 +36,7 @@ public class SchemeController {
 	    return schemeRepository.findById(id);
 	  }
 	
-	@PostMapping(value="/createScheme")
+	@PostMapping(value="/b")
 	public String createScheme(@RequestBody Scheme scheme) {
 		scheme.setId(service.getSequenceNumber(Scheme.SEQUENCE_NAME));
 		Scheme insertedScheme=schemeRepository.save(scheme);
