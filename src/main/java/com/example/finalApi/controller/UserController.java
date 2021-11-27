@@ -1,8 +1,10 @@
 package com.example.finalApi.controller;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
-
+import org.bson.BsonBinarySubType;
+import org.bson.types.Binary;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.example.finalApi.model.User;
 import com.example.finalApi.repositories.UserRepository;
@@ -31,15 +34,21 @@ public class UserController {
 		return userRepository.findAll();		
 	}
 	
+	@GetMapping(value="/login/{email}/{password}")
+	public User getCredentials(@PathVariable String email,@PathVariable String password){		
+		User loggedInUser= userRepository.getCredentials(email,password);		
+		return loggedInUser;
+	}
+	
 	 @GetMapping(value="/users/{id}")
 	 public Optional<User> findUsers(@PathVariable Integer id) {	    
 	    return userRepository.findById(id);
 	  }
-	
+	 
 	@PostMapping(value="/createUser")
-	public String createUser(@RequestBody User user) {
+	public String createUser(@RequestBody User user) throws IOException {
 		user.setId(service.getSequenceNumber(User.SEQUENCE_NAME));
-		User insertedUser=userRepository.save(user);
+          User insertedUser=userRepository.save(user);
 		return "User created "+insertedUser.getName();
 	}
 	
